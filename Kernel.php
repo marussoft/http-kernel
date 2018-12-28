@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Marussia\HttpKernel;
 
 use Marussia\Components\DependensyInjection as Container;
-use Marussia\Components\EventBus as Bus;
+use Marussia\HttpKernel\Managers\EventManager as Bus;
 use Marussia\HttpKernel\Managers\RequestManager as Request;
+use Marussia\HttpKernel\Managers\RouterManager as Router;
+use Marussia\HttpKernel\Managers\TaskManager as TaskManager;
+use Marussia\HttpKernel\Managers\FilterManager as Filter;
 
 class Kernel
 {
