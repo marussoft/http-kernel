@@ -10,11 +10,18 @@ class EventManager implements EventManagerInterface;
 {
     private $dispatcher;
     
-    private $config;
+    private $filterManager;
 
-    public function __construct(Dispatcher $dispatcher, Config $config)
+    public function __construct(Dispatcher $dispatcher, FilterManager $filter_manager)
     {
         $this->dispatcher = $dispatcher;
+        
+        $this->filterManager = $filter_manager;
+    }
+    
+    public function init()
+    {
+        $this->dispatcher->setHandler($this->filterManager);
     }
     
     public function register(string $type, string $name, string $layer, string $handler = '')
@@ -30,10 +37,5 @@ class EventManager implements EventManagerInterface;
     public function addLayer(string $layer)
     {
         $this->dispatcher->addLayer($layer);
-    }
-    
-    public function setHandler($handler, string $method)
-    {
-        $this->setHandler($handler, $method);
     }
 }

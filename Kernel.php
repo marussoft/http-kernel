@@ -16,39 +16,33 @@ class Kernel
     private $container;
 
     private $config;
-    
-    private $request;
-    
+
     private $bus;
     
+    private $taskManager;
     
     public function __construct()
     {
         $this->container = new Container;
+        
+        $this->bus = $this->container->instance(Bus::class);
         
         $this->config = $this->container->instance(Config::class);
     }
     
     public function init()
     {
-        $this->config->init();
-    
-        $this->initBus();
-
-        $this->initRequest();
-    }
-    
-    private function initBus()
-    {
-        $this->bus = $this->container->instance(Bus::class);
-    
-        $this->bus->setHandler()
-    }
-    
-    private function initRequest()
-    {
-        $this->request = $this->container->instance(Request::class);
+        // Инициализируем шину событый
+        $this->$this->bus->init();
         
-        $this->request->resolve();
+        // Регистрируем участников
+        $this->config->initMembers(['Kernel', 'Controller', 'Service']);
+        
+        // Получаем менеджер задач
+        $this->taskManager = $this->container->get(TaskManager::class);
+        
+        // Объявляем готовность ядра
+        $this->$this->bus->eventDispatch('Kernel.Kernel', 'Ready');
     }
+
 }
