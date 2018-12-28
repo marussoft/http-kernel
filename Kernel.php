@@ -15,6 +15,8 @@ class Kernel
 {
     private $container;
 
+    private $config;
+    
     private $request;
     
     private $bus;
@@ -23,10 +25,14 @@ class Kernel
     public function __construct()
     {
         $this->container = new Container;
+        
+        $this->config = $this->container->instance(Config::class);
     }
     
     public function init()
     {
+        $this->config->init();
+    
         $this->initBus();
 
         $this->initRequest();
