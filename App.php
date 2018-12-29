@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel;
 
-use Marussia\Components\DependensyInjection as Container;
+use Marussia\Components\DependencyInjection\Container as Container;
 
 class App
 {

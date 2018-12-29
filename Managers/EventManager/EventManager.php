@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel\Managers\EventManager;
 
-use Marussia\Components\DependensyInjection as Container;
+use Marussia\Components\DependencyInjection\Container as Container;
 use Marussia\Components\EventBus\Dispatcher as Dispatcher;
 use Marussia\HttpKernel\Managers\FilterManager\FilterManager as Filter;
 

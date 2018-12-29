@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel;
 
-use Marussia\Components\DependensyInjection as Container;
+use Marussia\Components\DependencyInjection\Container as Container;
 use Marussia\HttpKernel\Managers\EventManager\EventManager as Bus;
 use Marussia\HttpKernel\Managers\RequestManager\RequestManager as Request;
 use Marussia\HttpKernel\Managers\RouterManager\RouterManager as Router;
