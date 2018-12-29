@@ -56,7 +56,7 @@ class Kernel
         $this->$this->bus->eventDispatch($subject, $event, $event_data);
     }
     
-    public function command($member, $action, $data)
+    public function command(string $member, string $action, $data)
     {
         $member = $this->bus->getMember($member);
         
