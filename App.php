@@ -10,7 +10,7 @@ class App
 {
     private static $kernel;
     
-    public static start(Container $container)
+    public static run(Container $container)
     {
         if ($container->has(Kernel::class) {
             return;

@@ -2,19 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers;
+namespace Marussia\HttpKernel\Managers\EventManager;
 
+use Marussia\Components\DependensyInjection as Container;
 use Marussia\Components\EventBus\Dispatcher as Dispatcher;
+use Marussia\HttpKernel\Managers\FilterManager\FilterManager as Filter;
 
 class EventManager implements EventManagerInterface;
 {
     private $dispatcher;
     
     private $filterManager;
+    
+    private $container;
 
-    public function __construct(Dispatcher $dispatcher, FilterManager $filter_manager)
+    public function __construct(Filter $filter_manager)
     {
-        $this->dispatcher = $dispatcher;
+        $this->container = new Container;
+        
+        $this->dispatcher = $this->container->instance(Dispatcher::class);
         
         $this->filterManager = $filter_manager;
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers;
+namespace Marussia\HttpKernel\Managers\EventManager;
 
 use Marussia\Components\EventBus\Dispatcher as Dispatcher;
 
