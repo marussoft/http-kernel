@@ -10,6 +10,7 @@ use Marussia\HttpKernel\Managers\RequestManager\RequestManager as Request;
 use Marussia\HttpKernel\Managers\RouterManager\RouterManager as Router;
 use Marussia\HttpKernel\Managers\TaskManager\TaskManager as TaskManager;
 use Marussia\HttpKernel\Managers\FilterManager\FilterManager as Filter;
+use Marussia\HttpKernel\Managers\ResponseManager\ResponseManager as Response;
 
 class Kernel
 {
@@ -63,5 +64,15 @@ class Kernel
         $task = $member->getTask($member, $action, $data);
         
         $this->filter->run($task);
+    }
+    
+    public function view()
+    {
+    
+    }
+    
+    public function sendResponse()
+    {
+        $this->container->instance(Response::class)->send();
     }
 }
