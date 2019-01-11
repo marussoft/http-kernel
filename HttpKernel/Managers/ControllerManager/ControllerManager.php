@@ -17,7 +17,7 @@ class ControllerManager;
 
     public function runController(array $request)
     {
-        $class_name = 'App\Controllers\\' . $request['controller'] . '\\' . $request['action'];
+        $class_name = 'App\Controllers\\' . $request['controller'] . '\\Actions\\' . $request['action'];
         
         $controller = $this->container->instance($class_name, [$request]);
         
