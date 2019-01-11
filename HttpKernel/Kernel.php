@@ -37,6 +37,7 @@ class Kernel
         $this->config = $this->container->instance(Config::class);
     }
     
+    // Инициализирует компоненты ядра
     public function init()
     {
         // Инициализируем шину событый
@@ -52,22 +53,22 @@ class Kernel
         $this->$this->bus->eventDispatch('Kernel.Kernel', 'Ready');
     }
 
+    // Передает событие в шину
     public function event(string $subject, string $event, $event_data = null)
     {
         $this->$this->bus->eventDispatch($subject, $event, $event_data);
     }
     
+    // Обрабатывает полученую команду
     public function command(string $member, string $action, $data)
     {
+        // Получаем участника из шины
         $member = $this->bus->getMember($member);
         
+        // Создаем задачу
         $task = $member->getTask($member, $action, $data);
         
+        // Передаем в обработчик
         $this->filter->run($task);
-    }
-    
-    public function sendResponse()
-    {
-        $this->container->instance(Response::class)->send();
     }
 }
