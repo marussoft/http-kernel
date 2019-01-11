@@ -66,11 +66,6 @@ class Kernel
         $this->filter->run($task);
     }
     
-    public function view()
-    {
-    
-    }
-    
     public function sendResponse()
     {
         $this->container->instance(Response::class)->send();

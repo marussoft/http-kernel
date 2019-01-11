@@ -16,7 +16,12 @@ class App
             return;
         }
         static::$kernel = $container->instance(Kernel::class);
+        
+        // Инициализируем ядро
         static::$kernel->init();
+        
+        // Возвращаем ответ
+        static::$kernel->sendResponse();
     }
     
     public static function event(string $subject, string $event, $event_data = null)
