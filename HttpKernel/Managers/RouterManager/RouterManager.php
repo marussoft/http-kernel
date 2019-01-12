@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel\Managers\RouterManager;
 
+use Marussia\Components\DependencyInjection\Container as Container;
 use Marussia\Components\Router\Router as Router;
 
 class RouterManager
@@ -12,9 +13,11 @@ class RouterManager
     
     private $route;
 
-    public function __construct(Router $router)
+    public function __construct()
     {
-        $this->router = $router;
+        $container = new Container;
+        
+        $this->router = $container->instance(Router::class, [ROOT . '/app/Routes/']);
     }
     
     public function run($request)
