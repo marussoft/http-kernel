@@ -6,7 +6,7 @@ namespace Marussia\HttpKernel\Managers\RequestManager;
 
 use Marussia\Components\Request\Request as Request;
 
-class
+class RequestManager
 {
     private $eventBus;
     
