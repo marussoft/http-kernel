@@ -12,18 +12,28 @@ class RouterManager
     private $router;
     
     private $route;
+    
+    private $config;
 
-    public function __construct()
+    public function __construct(Config $config)
     {
         $container = new Container;
         
         $this->router = $container->instance(Router::class, [ROOT . '/app/Routes/']);
+        
+        $this->config = $config;
     }
     
     public function run($request)
     {
         $this->router->run($request->getUri());
         
-        $this->eventBus->eventDispatch('Kernel.Request', 'RouterReady', $this->router->getRoute());
+        $route = $this->router->getRoute();
+        
+        if (empty($route)) {
+            $route = $this->config->getDefaultRoute();
+        }
+        
+        $this->eventBus->eventDispatch('Kernel.Request', 'RouterReady', $route);
     }
 }

@@ -28,4 +28,12 @@ class Config
             require_once(ROOT . '/app/Config/' . $layer . '.members.php');
         }
     }
+    
+    public function getDefaultRoute()
+    {
+        $route['controller'] = CONTROLLER;
+        $route['action'] = ACTION;
+        
+        return $route;
+    }
 }
