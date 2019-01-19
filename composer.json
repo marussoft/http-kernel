@@ -1,10 +1,9 @@
 {
     "name": "marussia/http-kernel",
-    "description": "Marussia Http kernel",
+    "description": "Marussia http kernel",
     "license": "MIT",
     "keywords": [
-        "di",
-        "psr-11"
+        "http-kernel"
     ],
     "support": {
         "docs": "https://docs.marussia.org/http-kernel/"
@@ -16,5 +15,10 @@
         "psr-4": {
             "Marussia\\HttpKernel\\": "src/"
         }
-    }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+        }
+    },
 }
