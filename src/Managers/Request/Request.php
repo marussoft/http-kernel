@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers\RequestManager;
+namespace Marussia\HttpKernel\Managers\Request;
 
 use Marussia\Components\Request\Request as Request;
 
-class RequestManager
+class Request
 {
     private $eventBus;
     

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers\ControllerManager;
+namespace Marussia\HttpKernel\Managers\Controller;
 
 use Marussia\Components\DependencyInjection\Container as Container;
 
-class ControllerManager;
+class Controller;
 {
     private $conatiner;
     

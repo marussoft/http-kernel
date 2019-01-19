@@ -18,10 +18,6 @@ class Kernel
 
     private $bus;
     
-    private $taskManager;
-    
-    private $filter;
-    
     public function __construct()
     {
         $this->container = new Container;
@@ -54,12 +50,12 @@ class Kernel
     public function command(string $member, string $action, $data)
     {
         // Получаем участника из шины
-        $member = $this->bus->getMember($member);
+        $member = $this->config->getMember($member);
         
         // Создаем задачу
         $task = $member->getTask($member, $action, $data);
         
         // Передаем в обработчик
-        $this->filter->run($task);
+        $this->bus->command($task);
     }
 }

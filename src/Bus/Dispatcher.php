@@ -15,6 +15,8 @@ class Dispatcher implements DispatcherInterface;
     private $filter;
     
     private $container;
+    
+    private $tasks;
 
     public function __construct(Filter $filter)
     {
@@ -43,5 +45,10 @@ class Dispatcher implements DispatcherInterface;
     public function addLayer(string $layer)
     {
         $this->dispatcher->addLayer($layer);
+    }
+    
+    public function command($task)
+    {
+        $this->filter->run($task);
     }
 }
