@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers\FilterManager;
+namespace Marussia\HttpKernel\Bus;
 
 use Marussia\Components\DependencyInjection\Container as Container;
 use Marussia\Components\Filter\Filter as Filter;
 use Marussia\HttpKernel\Config as Config;
-use Marussia\HttpKernel\Managers\TaskManager\TaskManager as TaskManager;
+use Marussia\HttpKernel\Bus\Tasks as TaskManager;
 
-class FilterManager implements FilterManagerInterface
+class Filter
 {
     private $config;
     

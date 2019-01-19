@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Marussia\HttpKernel;
 
 use Marussia\Components\DependencyInjection\Container as Container;
-use Marussia\HttpKernel\Managers\EventManager\EventManager as Bus;
-use Marussia\HttpKernel\Managers\RequestManager\RequestManager as Request;
-use Marussia\HttpKernel\Managers\RouterManager\RouterManager as Router;
-use Marussia\HttpKernel\Managers\TaskManager\TaskManager as TaskManager;
-use Marussia\HttpKernel\Managers\FilterManager\FilterManager as Filter;
-use Marussia\HttpKernel\Managers\ResponseManager\ResponseManager as Response;
+use Marussia\HttpKernel\Bus\Dispatcher as Bus;
+use Marussia\HttpKernel\Managers\Request\Request as Request;
+use Marussia\HttpKernel\Managers\Router\Router as Router;
+use Marussia\HttpKernel\Managers\Response\Response as Response;
 
 class Kernel
 {
@@ -30,10 +28,6 @@ class Kernel
 
         $this->bus = $this->container->instance(Bus::class);
 
-        $this->taskManager = $this->container->instance(TaskManager::class);
-
-        $this->filter = $this->container->instance(Filter::class);
-
         $this->config = $this->container->instance(Config::class);
     }
     
@@ -45,9 +39,6 @@ class Kernel
         
         // Регистрируем участников
         $this->config->initMembers(['Kernel', 'Controller', 'Service']);
-        
-        // Инициализируем менеджер фильтров
-        $this->filter->init();
         
         // Объявляем о готовности ядра
         $this->$this->bus->eventDispatch('Kernel.Kernel', 'Ready');

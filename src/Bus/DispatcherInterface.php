@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers\EventManager;
+namespace Marussia\HttpKernel\Bus;
 
 use Marussia\Components\DependencyInjection\Container as Container;
 use Marussia\Components\EventBus\Dispatcher as Dispatcher;
-use Marussia\HttpKernel\Managers\FilterManager\FilterManager as Filter;
+use Marussia\HttpKernel\Bus\Filter as Filter;
 
-class EventManagerInterface
+class DispatcherInterface
 {
     private $dispatcher;
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers\TaskManager;
+namespace Marussia\HttpKernel\Bus;
 
 use Marussia\Components\DependencyInjection\Container as Container;
 use Marussia\Components\TaskManager\TaskManager as Manager;
 use Marussia\HttpKernel\Config as Config;
 
-class TaskManager implements TaskManagerInterface
+class Tasks
 {
     private $container;
     

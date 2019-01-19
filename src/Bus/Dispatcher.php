@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Managers\EventManager;
+namespace Marussia\HttpKernel\Bus;
 
 use Marussia\Components\DependencyInjection\Container as Container;
 use Marussia\Components\EventBus\Dispatcher as Dispatcher;
-use Marussia\HttpKernel\Managers\FilterManager\FilterManager as Filter;
+use Marussia\HttpKernel\Bus\Filter as Filter;
 
-class EventManager implements EventManagerInterface;
+class Dispatcher implements DispatcherInterface;
 {
     private $dispatcher;
     
-    private $filterManager;
+    private $filter;
     
     private $container;
 
-    public function __construct(Filter $filter_manager)
+    public function __construct(Filter $filter)
     {
         $this->container = new Container;
         
         $this->dispatcher = $this->container->instance(Dispatcher::class);
         
-        $this->filterManager = $filter_manager;
+        $this->filter = $filter;
     }
     
     public function init()
     {
-        $this->dispatcher->setHandler($this->filterManager);
+        $this->dispatcher->setHandler($this->filter);
     }
     
     public function register(string $type, string $name, string $layer, string $handler = '')
