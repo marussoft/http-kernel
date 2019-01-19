@@ -1,20 +1,20 @@
 {
-    "name": "marussia/dipendency-injection",
-    "description": "Automated recursive dependency injection for PSR-11 containers",
+    "name": "marussia/http-kernel",
+    "description": "Marussia Http kernel",
     "license": "MIT",
     "keywords": [
         "di",
         "psr-11"
     ],
     "support": {
-        "docs": "https://docs.marussia.org/di/"
+        "docs": "https://docs.marussia.org/http-kernel/"
     },
     "require": {
-        "php": "^7.1"
+        "php": "^7.0"
     },
     "autoload": {
         "psr-4": {
-            "Marussia\\HttpKerneli\\": "src/"
+            "Marussia\\HttpKernel\\": "src/"
         }
     }
 }
