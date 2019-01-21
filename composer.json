@@ -22,7 +22,7 @@
         "marussia/filter": "dev-master",
         "marussia/dependency-injection": "dev-master",
         "marussia/request": "dev-master",
-        "marussia/router": "dev-master",
+        "marussia/router": "dev-master"
     },
     "autoload": {
         "psr-4": {
