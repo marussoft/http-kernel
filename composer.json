@@ -24,6 +24,8 @@
         "marussia/request": "dev-master",
         "marussia/router": "dev-master"
     },
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Marussia\\HttpKernel\\": "src/"
