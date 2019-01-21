@@ -1,5 +1,6 @@
 {
     "name": "marussia/http-kernel",
+    "type": "library",
     "description": "Marussia http kernel",
     "license": "MIT",
     "keywords": [
@@ -15,7 +16,13 @@
         "docs": "https://docs.marussia.org/http-kernel/"
     },
     "require": {
-        "php": "^7.0"
+        "php": "^7.0",
+        "marussia/event-bus": "dev-master",
+        "marussia/task-manager": "dev-master",
+        "marussia/filter": "dev-master",
+        "marussia/dependency-injection": "dev-master",
+        "marussia/request": "dev-master",
+        "marussia/router": "dev-master",
     },
     "autoload": {
         "psr-4": {
