@@ -5,6 +5,12 @@
     "keywords": [
         "http-kernel"
     ],
+    "authors": [
+        {
+            "name": "Mikhail Ilinsky",
+            "email": "mail@milinsky.ru"
+        }
+    ],
     "support": {
         "docs": "https://docs.marussia.org/http-kernel/"
     },
@@ -14,11 +20,6 @@
     "autoload": {
         "psr-4": {
             "Marussia\\HttpKernel\\": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
         }
     }
 }
