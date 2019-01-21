@@ -4,28 +4,25 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel;
 
-use Marussia\HttpKernel\Managers\EventManager as EventBus;
-
 class Config
 {
     private static $layers;
     
     private static $eventBus;
     
-    public function __construct(EventBus $event_bus)
-    {
-        static::$eventBus = $event_bus;
-    }
-    
     public static function register(string $type, string $name, string $layer, string $handler = '')
     {
-        return static::$eventBus->register($type, $name, $layer, $handler)
+        return static::$eventBus->register($type, $name, $layer, $handler);
     }
     
-    public function initMembers(array $layers)
+    public function initMembers(array $layers, $event_bus)
     {
+        static::$eventBus = $event_bus;
+
         foreach ($layers as $layer) {
-            require_once(ROOT . '/app/Config/' . $layer . '.members.php');
+            require_once(ROOT . '/app/Config/' . strtolower($layer) . '.members.php');
+            
+            static::$eventBus->addLayer($layer);
         }
     }
     
@@ -35,5 +32,17 @@ class Config
         $route['action'] = ACTION;
         
         return $route;
+    }
+    
+    public function getFilters()
+    {
+        return [];
+    }
+    
+    public function getHandlers()
+    {
+        return [
+            'Kernel' => 'Marussia\HttpKernel\Handlers\Kernel'
+        ];
     }
 }

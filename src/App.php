@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel;
 
-use Marussia\Components\DependencyInjection\Container as Container;
+use Marussia\DependencyInjection\Container as Container;
 
 class App
 {
     private static $kernel;
     
     // Запускает приложение
-    public static function run(Container $container)
+    public static function run()
     {
-        if ($container->has(Kernel::class) {
+        $container = new Container;
+    
+        if ($container->has(Kernel::class)) {
             return;
         }
         static::$kernel = $container->instance(Kernel::class);

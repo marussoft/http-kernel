@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel\Managers\Request;
 
-use Marussia\Components\Request\Request as Request;
+use Marussia\Request\Request as RequestHandler;
+use Marussia\HttpKernel\App as App;
 
 class Request
 {
@@ -12,19 +13,17 @@ class Request
     
     private $request;
 
-    public function __construct(Request $request EventManager $event_bus)
+    public function __construct(RequestHandler $request)
     {
-        $this->eventBus = $event_bus;
-        
         $this->request = $request;
     }
     
     public function run()
     {
         if ($this->request->getContext() === 'Ajax') {
-            $this->eventBus->eventDispatch('Kernel.Request', 'AjaxRequestReady', $this->request);
+            App::event('Kernel.Request', 'AjaxRequestReady', $this->request);
         } else {
-            $this->eventBus->eventDispatch('Kernel.Request', 'RequestReady', $this->request);
+            App::event('Kernel.Request', 'RequestReady', $this->request);
         }
     }
 }

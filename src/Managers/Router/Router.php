@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel\Managers\Router;
 
-use Marussia\Components\DependencyInjection\Container as Container;
-use Marussia\Components\Router\Router as Router;
+use Marussia\DependencyInjection\Container as Container;
+use Marussia\Router\Router as RouterHandler;
+use Marussia\Httpkernel\Config as Config;
 
 class Router
 {
@@ -19,7 +20,7 @@ class Router
     {
         $container = new Container;
         
-        $this->router = $container->instance(Router::class, [ROOT . '/app/Routes/']);
+        $this->router = $container->instance(RouterHandler::class, [ROOT . '/app/Routes/']);
         
         $this->config = $config;
     }

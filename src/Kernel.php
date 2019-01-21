@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel;
 
-use Marussia\Components\DependencyInjection\Container as Container;
-use Marussia\HttpKernel\Bus\Dispatcher as Bus;
+use Marussia\DependencyInjection\Container as Container;
+use Marussia\HttpKernel\Bus\Bus as Bus;
 use Marussia\HttpKernel\Managers\Request\Request as Request;
 use Marussia\HttpKernel\Managers\Router\Router as Router;
 use Marussia\HttpKernel\Managers\Response\Response as Response;
@@ -22,9 +22,9 @@ class Kernel
     {
         $this->container = new Container;
 
-        $this->bus = $this->container->instance(Bus::class);
-
         $this->config = $this->container->instance(Config::class);
+        
+        $this->bus = $this->container->instance(Bus::class);
     }
     
     // Инициализирует компоненты ядра
@@ -34,16 +34,16 @@ class Kernel
         $this->bus->init();
         
         // Регистрируем участников
-        $this->config->initMembers(['Kernel', 'Controller', 'Service']);
+        $this->config->initMembers(['Kernel', 'Service'], $this->bus);
         
         // Объявляем о готовности ядра
-        $this->$this->bus->eventDispatch('Kernel.Kernel', 'Ready');
+        $this->bus->eventDispatch('Kernel.Kernel', 'Ready');
     }
 
     // Передает событие в шину
     public function event(string $subject, string $event, $event_data = null)
     {
-        $this->$this->bus->eventDispatch($subject, $event, $event_data);
+        $this->bus->eventDispatch($subject, $event, $event_data);
     }
     
     // Обрабатывает полученую команду

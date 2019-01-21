@@ -21,10 +21,7 @@ class Tasks
         $this->container = new Container;
         
         $this->config = $config;
-    }
-    
-    public function init()
-    {
+        
         $handlers = $this->config->getHandlers();
         
         $this->taskManager = $this->container->instance(Manager::class, [$handlers]);

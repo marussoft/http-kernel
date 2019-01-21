@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Marussia\HttpKernel\Bus;
 
 use Marussia\DependencyInjection\Container as Container;
-use Marussia\Filter\Filter as Filter;
+use Marussia\Filter\Filter as FilterHandler;
 use Marussia\HttpKernel\Config as Config;
 use Marussia\HttpKernel\Bus\Tasks as Tasks;
 
@@ -25,14 +25,11 @@ class Filter
     
         $this->config = $config;
         
-        $this->tasks = $task_manager;
-    }
-    
-    public function init() : void
-    {
+        $this->tasks = $tasks;
+        
         $filters = $this->config->getFilters();
         
-        $this->filter = $this->container->instance(Filter::class, [$filters, $this->tasks]);
+        $this->filter = $this->container->instance(FilterHandler::class, [$filters, $this->tasks]);
     }
     
     // Запускает фильтрацию задачи
