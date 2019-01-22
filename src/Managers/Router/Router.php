@@ -6,7 +6,8 @@ namespace Marussia\HttpKernel\Managers\Router;
 
 use Marussia\DependencyInjection\Container as Container;
 use Marussia\Router\Router as RouterHandler;
-use Marussia\Httpkernel\Config as Config;
+use Marussia\HttpKernel\Config as Config;
+use Marussia\HttpKernel\App as App;
 
 class Router
 {
@@ -34,7 +35,7 @@ class Router
         if (empty($route)) {
             $route = $this->config->getDefaultRoute();
         }
-        
-        $this->eventBus->eventDispatch('Kernel.Request', 'RouterReady', $route);
+
+        App::event('Kernel.Router', 'RouterReady', $route);
     }
 }

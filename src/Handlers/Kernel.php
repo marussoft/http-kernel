@@ -10,6 +10,8 @@ class Kernel
 {
     private $conatiner;
     
+    private $manager;
+    
     public function __construct()
     {
         $this->container = new Container;
@@ -19,9 +21,11 @@ class Kernel
     {
         $class_name = 'Marussia\HttpKernel\Managers\\' . $task->name() . '\\' . $task->name();
         
-        $manager = $this->container->instance($class_name);
+        if (!$this->container->has($class_name)) {
+            $this->container->instance($class_name);
+        }
         
-        call_user_func_array([$manager, $task->action()], [$task->data()]);
+        call_user_func_array([$this->container->get($class_name), $task->action()], [$task->data()]);
     }
     
     public function getContainer()
