@@ -35,4 +35,10 @@ class App
     {
         static::$kernel->command($member, $action, $data);
     }
+    
+    // Создает новую подписку для участника
+    public function subscribe(string $member, string $subject, string $action, array $condition = [])
+    {
+        static::$kernel->subscribe($member, $subject, $action, $condition);
+    }
 }

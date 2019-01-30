@@ -10,9 +10,11 @@ class Config
     
     private static $eventBus;
     
+    private static $members;
+    
     public static function register(string $type, string $name, string $layer, string $handler = '')
     {
-        return static::$eventBus->register($type, $name, $layer, $handler);
+        return static::$members[$type . '.' . $name] = static::$eventBus->register($type, $name, $layer, $handler);
     }
     
     public function initMembers(array $layers, $event_bus)
@@ -36,13 +38,16 @@ class Config
     
     public function getFilters()
     {
-        return [];
+        return require_once(ROOT . '/app/Config/filters.php');
     }
     
     public function getHandlers()
     {
-        return [
-            'Kernel' => 'Marussia\HttpKernel\Handlers\Kernel'
-        ];
+        return require_once(ROOT . '/app/Config/handlers.php');
+    }
+    
+    public function getMember($member)
+    {
+        return static::$members[$member];
     }
 }

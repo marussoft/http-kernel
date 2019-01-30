@@ -7,7 +7,6 @@ namespace Marussia\HttpKernel;
 use Marussia\DependencyInjection\Container as Container;
 use Marussia\HttpKernel\Bus\Bus as Bus;
 use Marussia\HttpKernel\Managers\Request\Request as Request;
-use Marussia\HttpKernel\Managers\Router\Router as Router;
 use Marussia\HttpKernel\Managers\Response\Response as Response;
 
 class Kernel
@@ -50,12 +49,24 @@ class Kernel
     public function command(string $member, string $action, $data)
     {
         // Получаем участника из шины
-        $member = $this->config->getMember($member);
+        $bus_member = $this->config->getMember($member);
         
         // Создаем задачу
-        $task = $member->getTask($member, $action, $data);
+        $task = $bus_member->createTask($action);
+        
+        $task->setData($data);
         
         // Передаем в обработчик
         $this->bus->command($task);
+    }
+    
+    // Создает новую подписку для участника
+    public function subscribe(string $member, string $subject, string $action, array $condition = [])
+    {
+        // Получаем участника из шины
+        $bus_member = $this->config->getMember($member);
+        
+        // Создаем подписку
+        $bus_member->subscribe($subject, $action, $condition);
     }
 }
