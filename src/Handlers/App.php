@@ -6,7 +6,7 @@ namespace Marussia\HttpKernel\Handlers;
 
 use Marussia\DependencyInjection\Container as Container;
 
-class Kernel
+class App
 {
     private $conatiner;
     

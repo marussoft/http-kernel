@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Marussia\HttpKernel\Managers\Controller;
 
 use Marussia\DependencyInjection\Container as Container;
+use Marussia\HttpKernel\App as App;
 
 class Controller
 {
@@ -31,5 +32,7 @@ class Controller
         $this->setRequest($this->request);
         
         $controller->run($route);
+        
+        App::event('App.Controller', 'Ready');
     }
 }

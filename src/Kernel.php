@@ -36,7 +36,7 @@ class Kernel
         $this->config->initMembers(['Kernel', 'Service'], $this->bus);
         
         // Объявляем о готовности ядра
-        $this->bus->eventDispatch('Kernel.Kernel', 'Ready');
+        $this->bus->eventDispatch('App.Kernel', 'Ready');
     }
 
     // Передает событие в шину
@@ -46,7 +46,30 @@ class Kernel
     }
     
     // Обрабатывает полученую команду
-    public function command(string $member, string $action, $data)
+    public function serviceCommand(string $member, string $action, $data = null)
+    {
+        if (preg_match('(^Service\.)', $member)) {
+            $this->command($member, $action, $data);
+        }
+    }
+    
+    // Создает новую подписку для участника
+    public function subscribe(string $member, string $subject, string $action, array $condition = [])
+    {
+        // Получаем участника из шины
+        $bus_member = $this->config->getMember($member);
+        
+        // Создаем подписку
+        $bus_member->subscribe($subject, $action, $condition);
+    }
+    
+    public function view($name, $data)
+    {
+        $this->command('App.Template', 'data', [$name => $data]);
+    }
+    
+    // Обрабатывает полученую команду
+    private function command(string $member, string $action, $data = null)
     {
         // Получаем участника из шины
         $bus_member = $this->config->getMember($member);
@@ -58,15 +81,5 @@ class Kernel
         
         // Передаем в обработчик
         $this->bus->command($task);
-    }
-    
-    // Создает новую подписку для участника
-    public function subscribe(string $member, string $subject, string $action, array $condition = [])
-    {
-        // Получаем участника из шины
-        $bus_member = $this->config->getMember($member);
-        
-        // Создаем подписку
-        $bus_member->subscribe($subject, $action, $condition);
     }
 }

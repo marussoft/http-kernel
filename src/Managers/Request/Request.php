@@ -20,10 +20,12 @@ class Request
     
     public function run()
     {
+        $this->request->init();
+        
         if ($this->request->getContext() === 'Ajax') {
-            App::event('Kernel.Request', 'AjaxRequestReady', $this->request);
+            App::event('App.Request', 'AjaxRequestReady', $this->request);
         } else {
-            App::event('Kernel.Request', 'RequestReady', $this->request);
+            App::event('App.Request', 'RequestReady', $this->request);
         }
     }
 }

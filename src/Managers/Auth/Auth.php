@@ -10,6 +10,6 @@ class Auth
 {
     public function init($request)
     {
-        App::event('Kernel.Auth', 'Ready');
+        App::event('App.Auth', 'Ready');
     }
 }

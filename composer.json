@@ -22,7 +22,8 @@
         "marussia/filter": "dev-master",
         "marussia/dependency-injection": "dev-master",
         "marussia/request": "dev-master",
-        "marussia/router": "dev-master"
+        "marussia/router": "dev-master",
+        "marussia/template": "dev-master"
     },
     "minimum-stability": "dev",
     "autoload": {

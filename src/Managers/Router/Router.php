@@ -36,6 +36,6 @@ class Router
             $route = $this->config->getDefaultRoute();
         }
 
-        App::event('Kernel.Router', 'RouterReady', $route);
+        App::event('App.Router', 'RouterReady', $route);
     }
 }
