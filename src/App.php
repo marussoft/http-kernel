@@ -11,7 +11,7 @@ class App
     private static $kernel;
     
     // Запускает приложение
-    public static function run(string $alias)
+    public static function run()
     {
         $container = new Container;
     
