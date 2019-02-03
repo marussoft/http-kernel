@@ -23,7 +23,8 @@
         "marussia/dependency-injection": "dev-master",
         "marussia/request": "dev-master",
         "marussia/router": "dev-master",
-        "marussia/template": "dev-master"
+        "marussia/template": "dev-master",
+        "marussia/authorization": "dev-master"
     },
     "minimum-stability": "dev",
     "autoload": {
