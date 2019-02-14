@@ -30,12 +30,12 @@ class Router
     {
         $this->router->run($request->getUri());
         
-        $route = $this->router->getRoute();
+        $map = $this->router->getMap();
         
-        if (empty($route)) {
-            $route = $this->config->getDefaultRoute();
+        if (empty($map)) {
+            $map = $this->config->getDefaultRoute();
         }
 
-        App::event('App.Router', 'RouterReady', $route);
+        App::event('App.Router', 'RouterReady', $map);
     }
 }
