@@ -14,7 +14,7 @@ class Auth
     {
         $container = new Container;
         
-        $auth = $container->instance(Authorization::class, [MASTER_KEY]);
+        $auth = $container->instance(Authorization::class, [AUTH_KEY]);
         
         if ($auth->isAuth()) {
             $data = $auth->getData();
