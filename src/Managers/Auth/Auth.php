@@ -14,12 +14,11 @@ class Auth
     {
         $container = new Container;
         
-        $auth = $container->instance(Authorization::class, [AUTH_KEY]);
+        $auth = $container->instance(Authorization::class, [MASTER_KEY]);
         
         if ($auth->isAuth()) {
             $data = $auth->getData();
         } else {
-            $auth->setGuest();
             $data['role'] = 'guest';
             $data['uid'] = 0;
             $data['gid'] = $auth->getGuestId();
