@@ -21,7 +21,9 @@ class Router
     {
         $container = new Container;
         
-        $this->router = $container->instance(RouterHandler::class, [ROOT . '/app/Routes/']);
+        $this->router = $container->instance(RouterHandler::class);
+        
+        $this->router->setRoutesPath(ROOT . '/app/Routes/');
         
         $this->config = $config;
     }
@@ -29,6 +31,8 @@ class Router
     public function run($request)
     {
         $this->router->run($request->getUri());
+        
+        $this->router->setMethod($request->getMethod());
         
         $map = $this->router->getMap();
         
