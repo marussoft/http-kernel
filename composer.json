@@ -17,7 +17,6 @@
     },
     "require": {
         "php": "^7.0",
-        "marussia/event-bus": "dev-master",
         "marussia/dependency-injection": "dev-master",
         "marussia/request": "dev-master",
         "marussia/router": "dev-master"
