@@ -17,9 +17,9 @@
     },
     "require": {
         "php": "^7.0",
-        "marussia/dependency-injection": "dev-master",
-        "marussia/request": "dev-master",
-        "marussia/router": "dev-master"
+        "marussia/dependency-injection": "~1.0",
+        "marussia/request": "~1.0",
+        "marussia/router": "~1.0"
     },
     "minimum-stability": "dev",
     "autoload": {
