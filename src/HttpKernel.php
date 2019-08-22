@@ -10,7 +10,7 @@ use Marussia\Request\Request;
 use Marussia\Router\Router;
 use Marussia\Response\Response;
 
-class Kernel extends Container
+class HttpKernel extends Container
 {
     private $request;
 

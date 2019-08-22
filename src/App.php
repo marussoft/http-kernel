@@ -10,18 +10,22 @@ class App
 {
     private static $kernel;
     
-    // Запускает приложение
-    public static function run()
-    {
-        $container = new Container;
+    private static $container;
     
-        if ($container->has(Kernel::class)) {
-            return;
+    // Запускает приложение
+    public static function initKernel() : HttpKernel
+    {
+        if (static::$container === Container::class) {
+            throw new \Exception('Application has been runed!');
         }
-        static::$kernel = $container->instance(Kernel::class);
+        static::$container = new Container;
+        static::$kernel = static::$container->instance(HttpKernel::class);
+        
+        // Инициализация сервисов ядра
+        // ...
         
         // Инициализируем ядро
-        static::$kernel->init();
+        return static::$kernel;
     }
     
     // Передает полученное событие в ядро
