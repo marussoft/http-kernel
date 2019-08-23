@@ -7,7 +7,7 @@ namespace Marussia\HttpKernel;
 use Marussia\DependencyInjection\Container;
 use Marussia\HttpKernel\Contracts\KernelBundleInterface as Bundle;
 use Marussia\HttpKernel\Exceptions\BundleIsNotFoundException;
-use Marussia\HttpKernel\Exceptions\KernelConfigIsNotInitiateException;
+use Marussia\HttpKernel\Exceptions\KernelConfigIsNotInitializedException;
 
 class BundleCollector extends Container
 {
@@ -18,7 +18,7 @@ class BundleCollector extends Container
     public function __construct(Config $config)
     {
         if (!$config->isReady()) {
-            throw new KernelConfigIsNotInitiateException();
+            throw new KernelConfigIsNotInitializedException();
         }
     
         $this->set(Config::class, $config);
@@ -60,6 +60,6 @@ class BundleCollector extends Container
     
     public function extensionsIsExists() : bool
     {
-        return empty($this->extensionBundlesBinds);
+        return !empty($this->extensionBundlesBinds);
     }
 }
