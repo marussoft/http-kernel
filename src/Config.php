@@ -4,50 +4,55 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel;
 
+use Marussia\HttpKernel\Exceptions\ConfigIsNotFoundException;
+use Marussia\HttpKernel\Exceptions\ConfigFileIsNotFoundException;
+
 class Config
 {
-    private static $layers;
-    
-    private static $eventBus;
-    
-    private static $members;
-    
-    public static function register(string $type, string $name, string $layer, string $handler = '')
-    {
-        return static::$members[$type . '.' . $name] = static::$eventBus->register($type, $name, $layer, $handler);
-    }
-    
-    public function initMembers(array $layers, $event_bus)
-    {
-        static::$eventBus = $event_bus;
+    private static $instance;
 
-        foreach ($layers as $layer) {
-            require_once(ROOT . '/app/Config/' . strtolower($layer) . '.members.php');
-            
-            static::$eventBus->addLayer($layer);
-        }
-    }
+    private $rootPath;
     
-    public function getDefaultRoute()
+    private $configDir;
+    
+    private $defaultBundlesBinds;
+
+    public function __construct(string $rootPath, string $configDir)
     {
-        $route['controller'] = CONTROLLER;
-        $route['action'] = ACTION;
+        $this->rootPath = $rootPath;
         
-        return $route;
+        $this->configDir = $rootPath . '/' . $configDir;
+        
+        $this->defaultBundleBinds = [
+            'RequestBundle' => 'Marussia\HttpKernel\Bundles\RequestResolver',
+            'EventBusBundle' => 'Marussia\HttpKernel\Bundles\EventBus',
+            'ResponseBundle' => 'Marussia\HttpKernel\Bundles\Response',
+        ];
+        
+        static::$instance = $this;
     }
     
-    public function getFilters()
+    public function getAll(string $configName) : array
     {
-        return require_once(ROOT . '/app/Config/filters.php');
+        $configPath = $this->configDir . '/' . str_replace('.', '/', $configName) . '.php';
+        if (!is_file($configPath)) {
+            throw new ConfigFileIsNotFoundException($configName);
+        }
+        return include $configPath;
     }
     
-    public function getHandlers()
+    public function getDefaultBundlesBinds() : array
     {
-        return require_once(ROOT . '/app/Config/handlers.php');
+        return $this->defaultBundlesBinds;
     }
     
-    public function getMember($member)
+    public static function get(string $configFile, string $configName) : string
     {
-        return static::$members[$member];
+        $configArray = static::$instance->getAll($configFile);
+        
+        if (!array_key_exists($configName, $configArray)) {
+            throw ConfigIsNotFoundException($configName, $configName);
+        }
+        return $configArray[$configName];
     }
 }

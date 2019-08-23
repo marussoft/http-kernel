@@ -9,46 +9,22 @@ use Marussia\DependencyInjection\Container as Container;
 class App
 {
     private static $kernel;
-    
-    private static $container;
-    
+
     // Запускает приложение
-    public static function initKernel() : HttpKernel
+    public static function initKernel(Config $config) : HttpKernel
     {
-        if (static::$container === Container::class) {
-            throw new \Exception('Application has been runed!');
+        if (static::$kernel === HttpKernel::class) {
+            throw new ApplicationHasBeenRunedException();
         }
-        static::$container = new Container;
-        static::$kernel = static::$container->instance(HttpKernel::class);
         
-        // Инициализация сервисов ядра
-        // ...
+        static::$kernel = new Httpkernel(new BundleCollector($config));
         
-        // Инициализируем ядро
+        // Возвращаем ядро
         return static::$kernel;
     }
     
-    // Передает полученное событие в ядро
-    public static function event(string $subject, string $event, $event_data = null)
+    public static function view(array $data) : void
     {
-        static::$kernel->event($subject, $event, $event_data);
+        static::$kernel->view($data);
     }
-    
-    // Передает полученное команду в ядро
-    public static function command(string $member, string $action, $data)
-    {
-        static::$kernel->serviceCommand($member, $action, $data);
-    }
-    
-    // Создает новую подписку для участника
-    public static function subscribe(string $member, string $subject, string $action, array $condition = [])
-    {
-        static::$kernel->subscribe($member, $subject, $action, $condition);
-    }
-    
-    public static function view(string $name, array $data)
-    {
-        static::$kernel->view($name, $data);
-    }
-
 }

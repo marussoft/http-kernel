@@ -4,76 +4,42 @@ declare(strict_types=1);
 
 namespace Marussia\HttpKernel;
 
-use Marussia\DependencyInjection\Container;
-use Marussia\EventBus\Bus;
 use Marussia\Request\Request;
-use Marussia\Router\Router;
-use Marussia\Response\Response;
 
-class HttpKernel extends Container
+class HttpKernel extends AbstractKernel
 {
-    private $request;
-
-    private $config;
-
-    private $bus;
+    private $bundleCollector;
     
-    private $response;
+    private const RESOLVER_NAME = 'RequestBundle';
     
-    public function __construct(Bus $bus, Config $config)
+    private const EVENT_BUS_NAME = 'EventBusBundle';
+    
+    private const RESPONSE_NAME = 'ResponseBundle';
+    
+    public function __construct(BundleCollector $bundleCollector)
     {
-        $this->config = $config;
-        
-        $this->bus = $bus;
+        $this->bundleCollector = $bundleCollector;
     }
     
     // Обрабатывает запрос
     public function handle(Request $request) : Response
     {
-        return $this->response;
-    }
-
-    // Передает событие в шину
-    public function event(string $subject, string $event, $event_data = null)
-    {
-        $this->bus->eventDispatch($subject, $event, $event_data);
-    }
+        $this->bundleCollector->getBundle(self::RESOLVER_NAME)->handle($request);
     
-    // Обрабатывает полученую команду
-    public function serviceCommand(string $member, string $action, $data = null)
-    {
-        if (preg_match('(^Service\.)', $member)) {
-            $this->command($member, $action, $data);
+        if ($this->bundleCollector->extensionsIsExists()) {
+            $extensions = $this->bundleCollector->getExtensions();
+            foreach($extensions as $extension) {
+                $extension->handle($request);
+            }
         }
+    
+        $this->bundleCollector->get(self::EVENT_BUS_NAME)->handle($request);
+        
+        return $this->bundleCollector->getBundle(self::RESPONSE_NAME);
     }
     
-    // Создает новую подписку для участника
-    public function subscribe(string $member, string $subject, string $action, array $condition = [])
+    public function view(array $data)
     {
-        // Получаем участника из шины
-        $bus_member = $this->config->getMember($member);
-        
-        // Создаем подписку
-        $bus_member->subscribe($subject, $action, $condition);
-    }
-    
-    public function view($name, $data)
-    {
-        $this->command('App.Template', 'data', [$name => $data]);
-    }
-    
-    // Обрабатывает полученую команду
-    private function command(string $member, string $action, $data = null)
-    {
-        // Получаем участника из шины
-        $bus_member = $this->config->getMember($member);
-        
-        // Создаем задачу
-        $task = $bus_member->createTask($action);
-        
-        $task->setData($data);
-        
-        // Передаем в обработчик
-        $this->bus->command($task);
+        $this->bundleCollector->getBundle(self::RESPONSE_NAME)->view($data);
     }
 }
