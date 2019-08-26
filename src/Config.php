@@ -23,12 +23,6 @@ class Config
         
         $this->configDir = $rootPath . '/' . $configDir;
         
-        $this->defaultBundleBinds = [
-            'RequestBundle' => 'Marussia\HttpKernel\Bundles\RequestResolver',
-            'EventBusBundle' => 'Marussia\HttpKernel\Bundles\EventBus',
-            'ResponseBundle' => 'Marussia\HttpKernel\Bundles\Response',
-        ];
-        
         static::$instance = $this;
     }
     
