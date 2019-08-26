@@ -17,7 +17,7 @@ class App
             throw new ApplicationHasBeenRunedException();
         }
         
-        static::$kernel = new Httpkernel(new BundleCollector($config));
+        static::$kernel = new Httpkernel(new ExtensionCollector($config));
         
         // Возвращаем ядро
         return static::$kernel;

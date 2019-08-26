@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Bundles;
+namespace Marussia\HttpKernel;
 
 use Marussia\Request\Request;
 use Marussia\Router\Router;
-use Marussia\HttpKernel\Contracts\KernelBundleInterface;
 use Marussia\HttpKernel\Config;
 
-class RequestBundle implements KernelBundleInterface
+class RequestBundle
 {
     private $request;
     
@@ -31,5 +30,4 @@ class RequestBundle implements KernelBundleInterface
         
         return $this->router->startRouting();
     }
-}
-
+} 

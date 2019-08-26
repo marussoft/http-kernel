@@ -41,11 +41,6 @@ class Config
         return include $configPath;
     }
     
-    public function getDefaultBundlesBinds() : array
-    {
-        return $this->defaultBundlesBinds;
-    }
-    
     public static function get(string $configFile, string $configName) : string
     {
         $configArray = static::$instance->getAll($configFile);
