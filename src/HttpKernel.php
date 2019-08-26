@@ -42,4 +42,9 @@ class HttpKernel extends AbstractKernel
     {
         $this->bundleCollector->getBundle(self::RESPONSE_NAME)->view($data);
     }
+    
+    public function response()
+    {
+        return $this->bundleCollector->getBundle(self::RESPONSE_NAME);
+    }
 }

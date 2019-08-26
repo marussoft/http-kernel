@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Marussia\HttpKernel\Bundles;
+namespace Marussia\HttpKernel;
 
 use Marussia\EventBus\Bus;
-use Marussia\Request\Request;
 use Marussia\HttpKernel\Config;
-use Marussia\HttpKernel\Contracts\KernelBundleInterface;
 
-class EventBusBundle implements KernelBundleInterface
+class EventBusBundle
 {
     private $bus;
 
@@ -25,4 +23,4 @@ class EventBusBundle implements KernelBundleInterface
     {
         
     }
-}
+} 
